@@ -1,6 +1,7 @@
 # Changelog
 
-## [1.0.0] - 2025-05-21
+## [0.0.1] - 2025-05-21
+- İlk yayın: il ve ilçe seçimleri için özelleştirilebilir dropdown widget'ları eklendi.
 
 ### Eklendi
 - Türkiye'deki 81 il ve tüm ilçeleri içeren yerel JSON veri desteği.
