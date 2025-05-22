@@ -10,6 +10,7 @@
 - Kullanıcı tarafından `onChanged` fonksiyonu ile seçilen verilerin alınması.
 - JSON dosyalarının otomatik yüklenmesini sağlayan yapı.
 - `Il` ve `Ilce` model sınıfları ile tip güvenliği.
+- Örnek uygulama örneği eklendi.
 
 ### Diğer
 - Paket dokümantasyonu (`README.md`) ve lisans dosyası eklendi.

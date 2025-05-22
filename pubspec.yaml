@@ -1,6 +1,6 @@
 name: il_ilce_dropdown
 description: "Türkiye il ve ilçe seçimleri için özelleştirilebilir bir dropdown paketi."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/muhammedhosgor/il_ilce_dropdown.git
 
 environment:

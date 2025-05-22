@@ -4,39 +4,90 @@ import '../models/district_model.dart';
 import 'city_dropdown.dart';
 import 'district_dropdown.dart';
 
+/// A widget that displays two dependent dropdowns:
+/// one for selecting a city and one for selecting a district based on the selected city.
 class CityDistrictDropdown extends StatefulWidget {
   final void Function(CityModel city, DistrictModel district)? onChanged;
 
-  // İl props
+  // --- City dropdown customization props ---
   final Widget? cityHint;
+
+  /// [cityHint] is the hint text for the city dropdown.
   final Widget? cityDisabledHint;
+
+  /// [cityDisabledHint] is the hint text for the city dropdown when it is disabled.
   final TextStyle? cityStyle;
+
+  /// [cityStyle] is the text style for the city dropdown.
   final double? cityIconSize;
+
+  /// [cityIconSize] is the size of the icon in the city dropdown.
   final bool cityIsExpanded;
+
+  /// [cityIsExpanded] determines if the city dropdown is expanded.
   final double? cityDropdownWidth;
+
+  /// [cityDropdownWidth] is the width of the city dropdown.
   final double? cityDropdownHeight;
+
+  /// [cityDropdownHeight] is the height of the city dropdown.
   final Widget? cityIcon;
+
+  /// [cityIcon] is the icon displayed in the city dropdown.
   final Color? cityDropdownColor;
+
+  /// [cityDropdownColor] is the background color of the city dropdown.
   final EdgeInsetsGeometry? cityPadding;
+
+  /// [cityPadding] is the padding for the city dropdown.
   final AlignmentGeometry cityAlignment;
 
+  /// [cityAlignment] is the alignment of the city dropdown.
   final BoxDecoration? cityBoxDecoration;
 
-  // İlçe props
+  /// [cityBoxDecoration] is the decoration applied to the city dropdown.
+
+  // --- District dropdown customization props ---
   final Widget? districtHint;
+
+  /// [districtHint] is the hint text for the district dropdown.
   final Widget? districtDisabledHint;
+
+  /// [districtDisabledHint] is the hint text for the district dropdown when it is disabled.
   final TextStyle? districtStyle;
+
+  /// [districtStyle] is the text style for the district dropdown.
   final double? districtIconSize;
+
+  /// [districtIconSize] is the size of the icon in the district dropdown.
   final bool districtIsExpanded;
+
+  /// [districtIsExpanded] determines if the district dropdown is expanded.
   final double? districtDropdownWidth;
+
+  /// [districtDropdownWidth] is the width of the district dropdown.
   final double? districtDropdownHeight;
+
+  /// [districtDropdownHeight] is the height of the district dropdown.
   final Widget? districtIcon;
+
+  /// [districtIcon] is the icon displayed in the district dropdown.
   final Color? districtDropdownColor;
+
+  /// [districtDropdownColor] is the background color of the district dropdown.
   final EdgeInsetsGeometry? districtPadding;
+
+  /// [districtPadding] is the padding for the district dropdown.
   final AlignmentGeometry districtAlignment;
 
+  /// [districtAlignment] is the alignment of the district dropdown.
   final BoxDecoration? districtBoxDecoration;
+
+  /// [districtBoxDecoration] is the decoration applied to the district dropdown.
+
   final double? spacerHeight;
+
+  /// [spacerHeight] is the height of the space between the two dropdowns.
 
   const CityDistrictDropdown({
     super.key,
@@ -73,33 +124,37 @@ class CityDistrictDropdown extends StatefulWidget {
 }
 
 class _CityDistrictDropdownState extends State<CityDistrictDropdown> {
-  late List<CityModel> citys;
-  late List<DistrictModel> districts;
+  late List<CityModel> citys; // Full city list
+  late List<DistrictModel> districts; // Full district list
 
-  CityModel? selectedCity;
-  DistrictModel? selectedDistrict;
+  CityModel? selectedCity; // Currently selected city
+  DistrictModel? selectedDistrict; // Currently selected district
 
   @override
   void initState() {
     super.initState();
     citys = cityList;
     districts = districtList;
+
+    // Default selected city (e.g., with id "0" as placeholder)
     selectedCity = citys.firstWhere((city) => city.id == "0");
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectedProvinceDistricts = districts.where((district) => district.il_id == selectedCity?.id).toList();
+    // Filter districts by selected city
+    final selectedProvinceDistricts = districts.where((district) => district.city_id == selectedCity?.id).toList();
 
     return Column(
       children: [
+        // --- City Dropdown ---
         CityDropdown(
           citys: citys,
           selectedCity: selectedCity,
           onChanged: (CityModel? city) {
             setState(() {
               selectedCity = city;
-              selectedDistrict = null;
+              selectedDistrict = null; // Reset district when city changes
             });
           },
           hint: widget.cityHint,
@@ -115,9 +170,13 @@ class _CityDistrictDropdownState extends State<CityDistrictDropdown> {
           alignment: widget.cityAlignment,
           boxDecoration: widget.cityBoxDecoration,
         ),
+
+        // Spacer between dropdowns
         SizedBox(
           height: widget.spacerHeight ?? 0,
         ),
+
+        // --- District Dropdown ---
         if (selectedCity != null && selectedCity!.id != "0")
           DistrictDropdown(
             districts: selectedProvinceDistricts,
@@ -125,6 +184,8 @@ class _CityDistrictDropdownState extends State<CityDistrictDropdown> {
             onChanged: (DistrictModel? district) {
               setState(() {
                 selectedDistrict = district;
+
+                // Callback when both city and district are selected
                 if (widget.onChanged != null && selectedCity != null && district != null) {
                   widget.onChanged!(selectedCity!, district);
                 }
@@ -135,13 +196,13 @@ class _CityDistrictDropdownState extends State<CityDistrictDropdown> {
             style: widget.districtStyle,
             iconSize: widget.districtIconSize,
             isExpanded: widget.districtIsExpanded,
-            // dropdownWidth: widget.districtDropdownWidth,
-            // dropdownHeight: widget.districtDropdownHeight,
+            // dropdownWidth: widget.districtDropdownWidth, // Optional
+            // dropdownHeight: widget.districtDropdownHeight, // Optional
             icon: widget.districtIcon,
             dropdownColor: widget.districtDropdownColor,
             padding: widget.districtPadding,
             alignment: widget.districtAlignment,
-            boxDecoration: widget.districtBoxDecoration, // **Eklendi**
+            boxDecoration: widget.districtBoxDecoration, // Decoration applied
           ),
       ],
     );

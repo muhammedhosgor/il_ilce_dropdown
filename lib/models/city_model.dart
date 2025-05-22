@@ -12,7 +12,7 @@ class CityModel {
   }
 }
 
-final List<Map<String, dynamic>> CityJsonList = [
+final List<Map<String, dynamic>> cityJsonList = [
   {"id": "0", "name": "İl Seçiniz"},
   {"id": "1", "name": "ADANA"},
   {"id": "2", "name": "ADIYAMAN"},
@@ -97,4 +97,4 @@ final List<Map<String, dynamic>> CityJsonList = [
   {"id": '81', 'name': 'DÜZCE'},
 ];
 
-final List<CityModel> cityList = CityJsonList.map((e) => CityModel.fromJson(e)).toList();
+final List<CityModel> cityList = cityJsonList.map((e) => CityModel.fromJson(e)).toList();

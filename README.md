@@ -20,4 +20,42 @@
 
 ```yaml
 dependencies:
-  il_ilce_dropdown: ^1.0.0
+  il_ilce_dropdown: ^1.0.0 
+  ```
+
+
+## Örnek | Example
+
+```
+import 'package:flutter/material.dart';
+import 'package:il_ilce_dropdown/city_district_dropdown.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'İl İlçe Dropdown Demo',
+      home: Scaffold(
+        appBar: AppBar(title: const Text('İl İlçe Seçimi')),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: CityDistrictDropdown(
+            onChanged: (il, ilce) {
+              print("Seçilen İl: ${il.name}, İlçe: ${ilce.name}");
+            },
+            cityHint: Text("İl Seçiniz"),
+            districtHint: Text("İlçe Seçiniz"),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
